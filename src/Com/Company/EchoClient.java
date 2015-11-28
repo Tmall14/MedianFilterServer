@@ -31,7 +31,7 @@ public class EchoClient {
     }
 
     public void client(Socket s) {
-        OutputStream out = null;
+        OutputStream out;
         InputStream in = null;
         try {
             //Getting IO's
