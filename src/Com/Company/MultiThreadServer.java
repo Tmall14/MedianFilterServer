@@ -53,17 +53,55 @@ public class MultiThreadServer  {
 
                 in.read(sizeAr);
                 int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
-
                 System.out.println("Getting image from client!");
 
                 byte[] imageAr = new byte[size];
-                in.read(imageAr);
+                int sizerecv = 0;
+                int sizerecv2 = 0;
+
+                /*while(sizerecv != size){
+                    sizerecv = sizerecv + in.read(imageAr);
+                    System.out.println(sizerecv);
+                    System.out.println(size);
+                    loop++;
+                }*/
+                byte[] imageAr2 = new byte[size];
+                int placement = 0;
+                while(sizerecv < size){
+                    sizerecv2 = in.read(imageAr);
+                    for(int i = 0; i < sizerecv2-1; i++)
+                    {
+                        imageAr2[i + placement] = imageAr[i];
+
+                    }
+                    placement = placement + sizerecv2;
+                    System.out.println(imageAr[1]);
+                    System.out.println(imageAr2[1]);
+                    sizerecv = sizerecv + sizerecv2;
+                }
+                /*int loop = 0;
+                int infoArray[] = new int[30];
+                for(int sizerecv = in.read(imageAr); sizerecv != size; sizerecv = sizerecv + in.read(imageAr)){
+                    loop++;
+                    infoArray[loop] = sizerecv;
+                    System.out.println(sizerecv);
+                }
+                System.out.println(infoArray[3]);
+
+                System.out.println(loop);
+                for(int i = 0; i < loop; i++){
+                    in.read(imageAr);
+                }*/
+
+                System.out.println("CONTINUE!");
+
                 System.out.println("Read image data, converting to image.");
 
                 //Converting bytes to the image
+
                 BufferedImage bi = null;
                 try {
-                    bi = ImageIO.read(new ByteArrayInputStream(imageAr));
+                    bi = ImageIO.read(new ByteArrayInputStream(imageAr2));
                 }
                 catch(EOFException e) {
                     System.out.println("Finished reading the image.");

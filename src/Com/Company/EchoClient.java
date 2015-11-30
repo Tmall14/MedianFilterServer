@@ -59,7 +59,7 @@ public class EchoClient {
             ImageIO.write(bi, "jpg", byteOut);
 
             byte[] size = ByteBuffer.allocate(4).putInt(byteOut.size()).array();
-
+            System.out.println(byteOut.size());
             System.out.println("Sending image to server.");
             //Sends the image
             out.write(size);
@@ -73,13 +73,33 @@ public class EchoClient {
             int cSize = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
 
             byte[]imageAr = new byte[cSize];
-            in.read(imageAr);
+            int sizerecv = 0;
+            int sizerecv2 = 0;
+
+            byte[] imageAr2 = new byte[cSize];
+            int placement = 0;
+            while(sizerecv < cSize){
+                sizerecv2 = in.read(imageAr);
+                for(int i = 0; i < sizerecv2-1; i++)
+                {
+                    imageAr2[i + placement] = imageAr[i];
+
+                }
+                placement = placement + sizerecv2;
+                System.out.println(imageAr[1]);
+                System.out.println(imageAr2[1]);
+                sizerecv = sizerecv + sizerecv2;
+            }
+            //in.read(imageAr);
+            //int sizerecv = 0;
+            //while(sizerecv == in.read(imageAr));
+            //in.read(imageAr);
             System.out.println("Got converted image data from server, starting conversion to image.");
 
             //Converting bytes to the image
             BufferedImage convertedBI = null;
             try {
-                convertedBI = ImageIO.read(new ByteArrayInputStream(imageAr));
+                convertedBI = ImageIO.read(new ByteArrayInputStream(imageAr2));
             }
             catch(EOFException e) {
                 System.out.println("Finished reading the image.");
