@@ -80,7 +80,7 @@ public class EchoClient {
             int placement = 0;
             while(sizerecv < cSize){
                 sizerecv2 = in.read(imageAr);
-                for(int i = 0; i < sizerecv2-1; i++)
+                for(int i = 0; i < sizerecv2; i++)
                 {
                     imageAr2[i + placement] = imageAr[i];
 
