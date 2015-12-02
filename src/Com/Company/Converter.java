@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class Converter {
     public static BufferedImage convert(BufferedImage image) {
-        
-        int kernelChoice = 7;
+        int TheKernel = 7;
+        int kernelChoice = TheKernel;
         int kernel = (kernelChoice-1)/2;
         int kernelSum = (kernelChoice*kernelChoice);
         int medianKernel = (kernelSum-1)/2;

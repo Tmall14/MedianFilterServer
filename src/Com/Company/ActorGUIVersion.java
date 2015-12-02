@@ -1,6 +1,8 @@
-
-
 package Com.Company;
+
+/**
+ * Created by TM on 02-12-2015.
+ */
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +22,7 @@ public class ActorGUIVersion extends JFrame implements ActionListener {
 
 
 
+
     public static void main(String[] args) {
         String[] choices = new String[]{"cats", "dogs"};
         String choice = askUser(choices);
@@ -27,8 +30,9 @@ public class ActorGUIVersion extends JFrame implements ActionListener {
     }
 
 
-    public ActorGUIVersion()
-    {
+    public ActorGUIVersion() {
+        JFrame F = new JFrame("ISMall");
+        JMenuBar menubar = new JMenuBar();
         add(container);
         messageField.setSize(100, 100);
         messageField.setEnabled(false);
@@ -44,8 +48,7 @@ public class ActorGUIVersion extends JFrame implements ActionListener {
 
     }
 
-    public static void main()
-    {
+    public static void main() {
         ActorGUIVersion AGUIV = new ActorGUIVersion();
         AGUIV.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -56,6 +59,7 @@ public class ActorGUIVersion extends JFrame implements ActionListener {
         EchoClient c = new EchoClient();
 
     }
+
     static String askUser(String[] choices) {
         String s = (String) JOptionPane.showInputDialog(
                 null,
