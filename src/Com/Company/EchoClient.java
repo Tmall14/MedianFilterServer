@@ -16,7 +16,7 @@ public class EchoClient {
 
 
     public static void main(String[] args) throws IOException {
-        new EchoClient();
+        ActorGUIVersion.main();
     }
 
     public EchoClient() {
@@ -40,10 +40,11 @@ public class EchoClient {
             System.out.println("Got image IO connection to server..");
 
             //Getting image:
+
             JFileChooser jfc = new JFileChooser();
             jfc.setDialogTitle("Select image file..");
             int action = jfc.showOpenDialog(null);
-            if(action != JFileChooser.APPROVE_OPTION)
+            if (action != JFileChooser.APPROVE_OPTION)
                 System.exit(0); // canceled by user
 
             File f = jfc.getSelectedFile();
