@@ -61,10 +61,13 @@ public class EchoClient {
             ImageIO.write(bi, "jpg", byteOut);
 
             byte[] size = ByteBuffer.allocate(4).putInt(byteOut.size()).array();
+            byte[] kernel = ByteBuffer.allocate(4).putInt(kernelChoice).array();
             System.out.println(byteOut.size());
             System.out.println("Sending image to server.");
             //Sends the image
+            System.out.println(size);
             out.write(size);
+            out.write(kernel);
             out.write(byteOut.toByteArray());
             out.flush();
 
