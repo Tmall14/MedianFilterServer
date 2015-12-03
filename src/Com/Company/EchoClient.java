@@ -19,18 +19,18 @@ public class EchoClient {
         ActorGUIVersion.main();
     }
 
-    public EchoClient() {
+    public EchoClient(int kernelChoice) {
         this.hostName = "localhost";
         this.portNumber = 1234;
         try {
-            client(new Socket(hostName, portNumber));
+            client(new Socket(hostName, portNumber), kernelChoice);
         }
         catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public void client(Socket s) {
+    public void client(Socket s, int kernelChoice) {
         OutputStream out;
         InputStream in = null;
         try {
@@ -39,6 +39,7 @@ public class EchoClient {
             in = s.getInputStream();
             System.out.println("Got image IO connection to server..");
 
+            System.out.println(kernelChoice);
             //Getting image:
 
             JFileChooser jfc = new JFileChooser();
