@@ -16,21 +16,21 @@ public class EchoClient {
 
 
     public static void main(String[] args) throws IOException {
-        new EchoClient();
+        ActorGUIVersion.main();
     }
 
-    public EchoClient() {
+    public EchoClient(int kernelChoice) {
         this.hostName = "localhost";
         this.portNumber = 1234;
         try {
-            client(new Socket(hostName, portNumber));
+            client(new Socket(hostName, portNumber), kernelChoice);
         }
         catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public void client(Socket s) {
+    public void client(Socket s, int kernelChoice) {
         OutputStream out;
         InputStream in = null;
         try {
@@ -39,11 +39,13 @@ public class EchoClient {
             in = s.getInputStream();
             System.out.println("Got image IO connection to server..");
 
+            System.out.println(kernelChoice);
             //Getting image:
+
             JFileChooser jfc = new JFileChooser();
             jfc.setDialogTitle("Select image file..");
             int action = jfc.showOpenDialog(null);
-            if(action != JFileChooser.APPROVE_OPTION)
+            if (action != JFileChooser.APPROVE_OPTION)
                 System.exit(0); // canceled by user
 
             File f = jfc.getSelectedFile();
@@ -59,10 +61,13 @@ public class EchoClient {
             ImageIO.write(bi, "jpg", byteOut);
 
             byte[] size = ByteBuffer.allocate(4).putInt(byteOut.size()).array();
+            byte[] kernel = ByteBuffer.allocate(4).putInt(kernelChoice).array();
             System.out.println(byteOut.size());
             System.out.println("Sending image to server.");
             //Sends the image
+            System.out.println(size);
             out.write(size);
+            out.write(kernel);
             out.write(byteOut.toByteArray());
             out.flush();
 

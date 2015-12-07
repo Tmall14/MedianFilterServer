@@ -55,6 +55,11 @@ public class MultiThreadServer  {
                 int size = ByteBuffer.wrap(sizeAr).asIntBuffer().get();
                 System.out.println("Getting image from client!");
 
+                byte[] kernel = new byte[4];
+                in.read(kernel);
+                int kernelChoice = ByteBuffer.wrap(kernel).asIntBuffer().get();
+                System.out.println(kernelChoice);
+
                 byte[] imageAr = new byte[size];
                 int sizerecv = 0;
                 int sizerecv2 = 0;
@@ -109,7 +114,7 @@ public class MultiThreadServer  {
 
                 System.out.println("Starting converting program.");
                 //Converting the image
-                BufferedImage converted = Converter.convert(bi);
+                BufferedImage converted = Converter.convert(bi, kernelChoice);
 
                 System.out.println("Done, sending image back to client.");
 
